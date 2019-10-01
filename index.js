@@ -108,8 +108,4 @@ server.delete('/api/posts/:id', (req, res) => {
 
 
 
-
-
-
-
 server.listen(8000, () => console.log("server is up and running"))
