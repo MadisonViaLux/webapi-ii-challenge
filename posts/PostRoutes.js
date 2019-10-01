@@ -13,19 +13,39 @@ router.get('/', (req, res) => {
 
 
 
-// router.get('/api/posts/:id/comments', (req, res) => {
-//     Post.findPostComments(req.params.id)
-//     .then(comments => {
-//         if(comments.length > 0){
-//             res.status(200).json(comments)
-//         } else {
-//             res.status(404).json({ error: '404'})
-//         }
-//     })
-//     .catch(error => {
-//         res.status(500).json({ error: 'no comment post found' })
-//     })
-// })
+router.get('/:id', (req, res) => {
+    const { id } = req.params
+
+    Post.findById(id)
+        .then(post => {
+            if(!id){
+                res.status(404).json({ error: '404' })
+            } else {
+                res.status(200).json(post)
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ error: "The posts information could not be retrieved." })
+        })
+})
+
+
+
+router.get('/:id/comments', (req, res) => {
+    const { id } = req.params
+
+    Post.findPostComments(id)
+        .then(comments => {
+            if(!id){
+                res.status(404).json({ error: '404' })
+            } else {
+                res.status(200).json(comments)
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ error: 'no comment post found' })
+        })
+})
 
 
 

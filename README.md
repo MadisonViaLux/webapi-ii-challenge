@@ -84,6 +84,10 @@ Configure the API to handle to the following routes:
 
 #### Endpoint Specifications
 
+
+
+
+
 When the client makes a `POST` request to `/api/posts`:
 
 - If the request body is missing the `title` or `contents` property:
@@ -102,6 +106,10 @@ When the client makes a `POST` request to `/api/posts`:
   - cancel the request.
   - respond with HTTP status code `500` (Server Error).
   - return the following JSON object: `{ error: "There was an error while saving the post to the database" }`.
+
+
+
+
 
 When the client makes a `POST` request to `/api/posts/:id/comments`:
 
@@ -127,12 +135,20 @@ When the client makes a `POST` request to `/api/posts/:id/comments`:
   - respond with HTTP status code `500` (Server Error).
   - return the following JSON object: `{ error: "There was an error while saving the comment to the database" }`.
 
+
+
+
+
 When the client makes a `GET` request to `/api/posts`:
 
 - If there's an error in retrieving the _posts_ from the database:
   - cancel the request.
   - respond with HTTP status code `500`.
   - return the following JSON object: `{ error: "The posts information could not be retrieved." }`.
+
+
+
+
 
 When the client makes a `GET` request to `/api/posts/:id`:
 
@@ -146,6 +162,10 @@ When the client makes a `GET` request to `/api/posts/:id`:
   - respond with HTTP status code `500`.
   - return the following JSON object: `{ error: "The post information could not be retrieved." }`.
 
+
+
+
+
 When the client makes a `GET` request to `/api/posts/:id/comments`:
 
 - If the _post_ with the specified `id` is not found:
@@ -158,6 +178,10 @@ When the client makes a `GET` request to `/api/posts/:id/comments`:
   - respond with HTTP status code `500`.
   - return the following JSON object: `{ error: "The comments information could not be retrieved." }`.
 
+
+
+
+
 When the client makes a `DELETE` request to `/api/posts/:id`:
 
 - If the _post_ with the specified `id` is not found:
@@ -169,6 +193,10 @@ When the client makes a `DELETE` request to `/api/posts/:id`:
   - cancel the request.
   - respond with HTTP status code `500`.
   - return the following JSON object: `{ error: "The post could not be removed" }`.
+
+
+
+
 
 When the client makes a `PUT` request to `/api/posts/:id`:
 
