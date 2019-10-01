@@ -49,49 +49,43 @@ router.get('/:id/comments', (req, res) => {
 
 
 
-// router.get('/api/posts/:id', (req, res) => {
-//     Post.findById(req.params.id)
-//         .then((data) => {
-//             res.status(200).json(data)
-//         })
-//         .catch( error => {
-//             res.status(500).json({ error: "id does not exist" })
-//         })
-// })
+router.post('/', (req, res) => {
+    const newPost = req.body
+
+    if(!newPost.title && !newPost.contents){
+        return res.status(400).json({ errorMessage: "Please provide title and contents for the post." })
+    } else {
+        Post.insert(newPost)
+            .then(newPosts => {
+                res.status(201).json(newPosts)
+            })
+            .catch(error => {
+                res.status(500).json({ error: "There was an error while saving the post to the database" })
+            })
+    }
+})
 
 
 
-// router.post('/api/posts/:id/comments', (req, res) => {
+router.post('/:id/comments', (req, res) => {
+    const comment = req.body
 
-//     req.body.post_id = req.params.id;
+    if(comment.post_id = req.params.id){
 
-//     if(!req.body.text){
-//        return res.status(400).json({error: 'bad request'})
-//     }
-//     Post.insertComment(req.body)
-//     .then(addComments => {
-//             res.status(200).json(addComments)
-//     })
-//     .catch(error => {
-//         res.status(500).json({ error: 'no comment added' })
-//     })
-// })
+        if(!comment.text){
+            return res.status(400).json({error: 'bad request'})
+        } else {
+            Post.insertComment(comment)
+                .then(addComments => {
+                    res.status(200).json(addComments)
+                })
+                .catch(error => {
+                res.status(500).json({ error: 'no comment added' })
+                })
+        }
+    }
 
-
-
-// router.post('/api/posts', (req, res) => {
-//     if(!req.body.title || !req.body.content){
-//         return res.status(400).json({error: 'no title or content'})
-//      }
-//     Post.insert(req.body)
-//     .then(postId => {
-//             res.status(200).json(postId)
-//     })
-//     .catch(error => {
-//         res.status(500).json({ error: 'no post ID' })
-//     })
-
-// })
+})
 
 
 
