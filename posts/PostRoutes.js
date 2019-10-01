@@ -71,7 +71,6 @@ router.post('/:id/comments', (req, res) => {
     const comment = req.body
 
     if(comment.post_id = req.params.id){
-
         if(!comment.text){
             return res.status(400).json({error: 'bad request'})
         } else {
@@ -84,12 +83,23 @@ router.post('/:id/comments', (req, res) => {
                 })
         }
     }
-
 })
 
 
 
-// router.delete('/api/posts/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
+    const { id } = req.params
+
+    Post.remove(id)
+        .then(post => {
+            if(!id){
+                return res.status(404).json({ message: "The post with the specified ID does not exist." })
+            } else {
+                return res.status(200).json(post)
+            }
+        })
+        .catch(err => res.status(500).json({ error: "The post could not be removed" }))
+})
 
 //     const newData = []
 
@@ -107,7 +117,7 @@ router.post('/:id/comments', (req, res) => {
 //         })
 
 //     Post.remove(req.params.id)
-//     .then((rmData) => {
+//         .then((rmData) => {
 //             res.status(200).json(newData)
 //     })
 //     .catch(error => {
