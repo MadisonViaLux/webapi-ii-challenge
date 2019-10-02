@@ -7,11 +7,23 @@
   "scripts": {
     "server": "nodemon index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MadisonViaLux/webapi-ii-challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MadisonViaLux/webapi-ii-challenge/issues"
+  },
+  "homepage": "https://github.com/MadisonViaLux/webapi-ii-challenge#readme",
   "dependencies": {
-    "knex": "^0.18.3",
-    "sqlite3": "^4.0.9"
+    "express": "^4.17.1",
+    "knex": "^0.19.4",
+    "sqlite3": "^4.1.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.3"
   }
 }

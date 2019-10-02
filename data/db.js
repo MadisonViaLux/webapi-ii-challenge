@@ -9,7 +9,7 @@ module.exports = {
   update,
   remove,
   findPostComments,
-  findCommentById,
+  // findCommentById,
   insertComment,
 };
 
@@ -46,12 +46,12 @@ function findPostComments(postId) {
     .where('post_id', postId);
 }
 
-function findCommentById(id) {
-  return db('comments')
-    .join('posts', 'posts.id', 'post_id')
-    .select('comments.*', 'title as post')
-    .where('comments.id', id);
-}
+// function findCommentById(id) {
+//   return db('comments')
+//     .join('posts', 'posts.id', 'post_id')
+//     .select('comments.*', 'title as post')
+//     .where('comments.id', id);
+// }
 
 function insertComment(comment) {
   return db('comments').insert(comment).then(ids => ({ id: ids[0] }));
