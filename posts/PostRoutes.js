@@ -68,22 +68,26 @@ router.post('/', (req, res) => {
 
 
 router.post('/:id/comments', (req, res) => {
+    const { id } = req.params
     const comment = req.body
 
-    if(comment.post_id = req.params.id){
-        if(!comment.text){
-            return res.status(400).json({error: 'bad request'})
+    // console.log(comment)
+
+    if(!id){
+        return res.status(404).json({ message: "The post with the specified ID does not exist." })
+    } else if(!comment.text){
+            return res.status(400).json({ errorMessage: "Please provide text for the comment." })
         } else {
             Post.insertComment(comment)
                 .then(addComments => {
                     res.status(200).json(addComments)
                 })
                 .catch(error => {
-                res.status(500).json({ error: 'no comment added' })
+                res.status(500).json({ error: "There was an error while saving the comment to the database" })
                 })
         }
     }
-})
+)
 
 
 
@@ -93,37 +97,33 @@ router.delete('/:id', (req, res) => {
     Post.remove(id)
         .then(post => {
             if(!id){
-                return res.status(404).json({ message: "The post with the specified ID does not exist." })
+                return console.log(res.status(404).json({ message: "The post with the specified ID does not exist." }))
             } else {
-                return res.status(200).json(post)
+                return console.log(res.status(200).json(post))
             }
         })
         .catch(err => res.status(500).json({ error: "The post could not be removed" }))
 })
 
-//     const newData = []
 
-//     Post.findById(req.params.id)
-//         .then((data) => {
-//             if(data[0]){
-//                 newData.push(data)
-//             } else {
-//                return res.status(404).json({ error: '404'})
-//             }
-            
-//         })
-//         .catch( error => {
-//            return res.status(500).json({ error: "id does not exist" })
-//         })
 
-//     Post.remove(req.params.id)
-//         .then((rmData) => {
-//             res.status(200).json(newData)
-//     })
-//     .catch(error => {
-//         res.status(500).json({ error: 'this post could not be deleted' })
-//     })
-// })
+router.put('/:id', (req, res) => {
+    const { id } = req.params
+    const changes = req.body
+
+    if(!id){
+        return console.log(res.status(404).json({ message: "The post with the specified ID does not exist." }))
+    } else if(!changes.title && !changes.contents){
+        return console.log(res.status(400).json({ errorMessage: "Please provide title and contents for the post." }))
+    } else {
+        Post.update(id, changes)
+            .then(update => res.status(200).json(update))
+            .catch( error => {
+                res.status(500).json({ error: "The post information could not be modified." })
+            })
+    }
+}) 
+
 
 
 module.exports = router
